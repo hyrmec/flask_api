@@ -5,6 +5,7 @@
 from flask import Flask, current_app
 from flask_cli import FlaskCLI
 from flask_jsonrpc import JSONRPC
+from flask_cors import CORS
 from flask_mail import Mail
 from flask_migrate import Migrate
 from flask_sqlalchemy import SQLAlchemy
@@ -16,6 +17,7 @@ migrate = Migrate()
 mail = Mail()
 jsonrpc = JSONRPC()
 flask_cli = FlaskCLI()
+cors = CORS()
 
 
 def create_app(config_class=Config):
@@ -27,7 +29,7 @@ def create_app(config_class=Config):
         app.config.from_object(ProductionConfig)
     else:
         app.config.from_object(config_class)
-
+    cors.init_app(app)
     flask_cli.init_app(app)
     db.init_app(app)
 
