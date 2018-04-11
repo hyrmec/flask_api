@@ -20,7 +20,13 @@ flask_cli = FlaskCLI()
 
 def create_app(config_class=Config):
     app = Flask(__name__)
-    app.config.from_object(config_class)
+    conf = os.environ.get('APP_CONFIG_SET')
+    if 'DEV' in conf:
+        app.config.from_object(DevelopConfig)
+    elif 'PROD' in conf:
+        app.config.from_object(ProductionConfig)
+    else:
+        app.config.from_object(config_class)
 
     flask_cli.init_app(app)
     db.init_app(app)
