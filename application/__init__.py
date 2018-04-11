@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 # ~ Author: Pavel Nikylshin
-
+import os
 from flask import Flask, current_app
 from flask_cli import FlaskCLI
 from flask_jsonrpc import JSONRPC
@@ -10,7 +10,7 @@ from flask_mail import Mail
 from flask_migrate import Migrate
 from flask_sqlalchemy import SQLAlchemy
 
-from config import Config
+from config import DevelopConfig, ProductionConfig
 
 db = SQLAlchemy()
 migrate = Migrate()
@@ -20,12 +20,12 @@ flask_cli = FlaskCLI()
 cors = CORS()
 
 
-def create_app(config_class=Config):
+def create_app(config_class=DevelopConfig):
     app = Flask(__name__)
     conf = os.environ.get('APP_CONFIG_SET')
-    if 'DEV' in conf:
+    if conf and 'DEV' in conf:
         app.config.from_object(DevelopConfig)
-    elif 'PROD' in conf:
+    elif conf and 'PROD' in conf:
         app.config.from_object(ProductionConfig)
     else:
         app.config.from_object(config_class)
