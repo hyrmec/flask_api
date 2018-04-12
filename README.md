@@ -39,6 +39,7 @@ python manage.py
 _Запустить bash ./start.sh(из корня) в виртуальном окружении_
 
 **Старт celery (sms и email оповещения)**
+
 ```celery -A celery_tasks.notifications_tasks worker -l info```
 
 _Старт/Стоп в фоновом режиме_
