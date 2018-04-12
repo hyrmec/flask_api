@@ -1,4 +1,4 @@
-#flask_api jsonrpc documentation
+# flask_api jsonrpc documentation
 
 _Flask cli команды_
 
@@ -40,7 +40,9 @@ _Запустить bash ./start.sh(из корня) в виртуальном �
 
 **Старт celery (sms и email оповещения)**
 ```celery -A celery_tasks.notifications_tasks worker -l info```
+
 _Старт/Стоп в фоновом режиме_
+
 ```celery multi start w1 -A celery_tasks.notifications_tasks -l info```
 
 ```celery multi stop w1 -A celery_tasks.notifications_tasks -l info```
@@ -62,5 +64,5 @@ celery multi stop w1 -A -A celery_tasks.ad_export_tasks worker -B -l info -s /si
 ```
 
 
-###Дополнительные утилиты для взаимодействия с внешними api и другие полезные функции, классы и хелперы - находятся в дирректории /utils
+### Дополнительные утилиты для взаимодействия с внешними api и другие полезные функции, классы и хелперы - находятся в дирректории /utils
 
