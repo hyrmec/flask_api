@@ -16,6 +16,7 @@ migrate = Migrate()
 jsonrpc = JSONRPC()
 flask_cli = FlaskCLI()
 cors = CORS()
+
 auth = HTTPTokenAuth(scheme='WWWToken')
 
 
@@ -24,12 +25,14 @@ def verify_token(token):
     """Верификация токена авторизации
 
     """
-    return
+    if token:
+        return True
+    else:
+        return False
 
 
 def create_app(config_class=DevelopConfig):
     app = Flask(__name__)
-
     conf = os.environ.get('APP_CONFIG_SET')
     if conf and 'DEV' in conf:
         app.config.from_object(DevelopConfig)
@@ -42,17 +45,16 @@ def create_app(config_class=DevelopConfig):
     flask_cli.init_app(app)
     db.init_app(app)
 
+    # Models
     from application import models
-
-    # register blueprints
-    from application import controllers
-    app.register_blueprint(controllers.mod_auth)
 
     migrate.init_app(app, db)
     jsonrpc.init_app(app)
     jsonrpc.enable_web_browsable_api = True
     jsonrpc.service_url = '/api/v1'
 
-
+    # Register blueprints
+    from application import controllers
+    app.register_blueprint(controllers.auth.mod_auth)
 
     return app
