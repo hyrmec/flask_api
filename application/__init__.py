@@ -9,6 +9,7 @@ from flask_cors import CORS
 from flask_migrate import Migrate
 from flask_sqlalchemy import SQLAlchemy
 from flask_httpauth import HTTPTokenAuth
+from flask_marshmallow import Marshmallow
 from config import DevelopConfig, ProductionConfig
 
 db = SQLAlchemy()
@@ -16,7 +17,7 @@ migrate = Migrate()
 jsonrpc = JSONRPC()
 flask_cli = FlaskCLI()
 cors = CORS()
-
+ma = Marshmallow()
 auth = HTTPTokenAuth(scheme='WWWToken')
 
 
@@ -44,6 +45,7 @@ def create_app(config_class=DevelopConfig):
     cors.init_app(app)
     flask_cli.init_app(app)
     db.init_app(app)
+    ma.init_app(app)
 
     # Models
     from application import models
