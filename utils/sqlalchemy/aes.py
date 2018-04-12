@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# ~ Author: Pavel Ivanov
-# ~ Date: Август 2016
+# ~ Author: Pavel Nikulshin
 
 import binascii
 
