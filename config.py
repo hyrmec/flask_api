@@ -12,7 +12,7 @@ class Config(object):
     """
     DEBUG = True
 
-    SQLALCHEMY_DATABASE_URI = 'postgresql://user:password@0.0.0.0:5432/database'
+    SQLALCHEMY_DATABASE_URI = 'postgresql://user:test@localhost:5432/test'
     SQLALCHEMY_ECHO = False
     SQLALCHEMY_TRACK_MODIFICATIONS = True
 
@@ -45,6 +45,18 @@ class Config(object):
     TEST_LOGIN = 'admin'
     TEST_PASSWORD = 'pass'
     TEST_IS_SUBAGENT = False
+
+    # oAuth2
+    OAUTH_CREDENTIALS = {
+        'facebook': {
+            'id': '470154729788964',
+            'secret': '010cc08bd4f51e34f3f3e684fbdea8a7'
+        },
+        'twitter': {
+            'id': '3RzWQclolxWZIMq5LJqzRZPTl',
+            'secret': 'm9TEd58DSEtRrZHpz2EjrV9AhsBRxKMo8m3kuIZj3zLwzwIimt'
+        }
+    }
 
 
 class ProductionConfig(Config):
