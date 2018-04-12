@@ -14,7 +14,7 @@ from config import DevelopConfig, ProductionConfig
 
 db = SQLAlchemy()
 migrate = Migrate()
-jsonrpc = JSONRPC()
+jsonrpc = JSONRPC(service_url='/api/v1',enable_web_browsable_api=True)
 flask_cli = FlaskCLI()
 cors = CORS()
 ma = Marshmallow()
@@ -26,10 +26,7 @@ def verify_token(token):
     """Верификация токена авторизации
 
     """
-    if token:
-        return True
-    else:
-        return False
+    return True
 
 
 def create_app(config_class=DevelopConfig):
@@ -52,8 +49,6 @@ def create_app(config_class=DevelopConfig):
 
     migrate.init_app(app, db)
     jsonrpc.init_app(app)
-    jsonrpc.enable_web_browsable_api = True
-    jsonrpc.service_url = '/api/v1'
 
     # Register blueprints
     from application import controllers

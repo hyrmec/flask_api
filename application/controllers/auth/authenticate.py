@@ -4,6 +4,7 @@
 from application.controllers.auth import jsonrpc
 from application import auth
 
+
 @jsonrpc.method('Auth.test')
 @auth.login_required
 def auth_test():
