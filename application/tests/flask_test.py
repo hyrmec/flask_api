@@ -12,7 +12,7 @@ import json
 import unittest
 import logging
 from application import create_app, db, current_app
-from utils.flask.decorators import flask_exceptions
+from utils.exceptions import flask as flask_exceptions
 from datetime import datetime
 from config import Test
 
@@ -59,13 +59,13 @@ class FlaskTestCase(unittest.TestCase):
         :return: None
 
         """
-        self.auth_call('Session.signout')
+        # self.auth_call('Session.signout')
 
     def setUp(self):
         """setUp for test"""
 
-        self.session_id = self.user_signin()
-        self.www_uuid = 'b4b16ca2-f8d3-4791-9119-f2a6eb9b7e94'
+        # self.session_id = self.user_signin()
+        # self.www_uuid = 'b4b16ca2-f8d3-4791-9119-f2a6eb9b7e94'
 
 
     def _call(self, method, request_data=None):
@@ -93,12 +93,8 @@ class FlaskTestCase(unittest.TestCase):
         data = json.dumps({'id': '1', 'jsonrpc': '2.0', 'method': method, 'params': request_data})
 
         headers = {'Content-Type': 'application/json', 'Authorization': 'WWWToken ' + self.session_id}
-        if self.test_rollback:
-            with self.app.app_context():
-                db.session.begin_nested()
-                response = self.app.post("/api/v1", data=data, headers=headers)
-        else:
-            response = self.app.post("/api/v1", data=data, headers=headers)
+
+        response = self.app.post("/api/v1", data=data, headers=headers)
         return json.loads(response.data.decode("UTF-8"))
 
     def auth_uuid_call(self, method, request_data=None):

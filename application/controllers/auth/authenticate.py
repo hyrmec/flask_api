@@ -9,9 +9,8 @@ from utils.exceptions import flask as flask_exeptions
 
 
 @jsonrpc.method('OAuth2.authorize(provider=String)', validate=True)
-@auth.login_required
 def oauth_authorize(provider):
-    """ Авторизация пользователя через OAuth2 выбранного провайдера
+    """ Получение ссылки на авторизацию сервиса
 
     :param provider: str
     :return:
@@ -20,9 +19,8 @@ def oauth_authorize(provider):
     return oauth.authorize()
 
 
-@jsonrpc.method('OAuth2.callback(provider=String)', validate=True)
-@auth.login_required
-def oauth_callback(provider):
+@jsonrpc.method('OAuth2.signin(provider=String)', validate=True)
+def oauth_signin(provider):
     oauth = OAuthSignIn.get_provider(provider)
     social_id, username, email = oauth.callback()
     if social_id is None:
@@ -32,6 +30,8 @@ def oauth_callback(provider):
         user = User(social_id=social_id, nickname=username, email=email)
         db.session.add(user)
         db.session.commit()
-    #login_user(user, True)
     return True
 
+
+if __name__ == '__main__':
+    oauth_authorize('facebook')
