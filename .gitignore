@@ -8,6 +8,6 @@
 *.launch
 .settings/
 *.sublime-workspace
-/__pycache__
+__pycache__/
 
 
