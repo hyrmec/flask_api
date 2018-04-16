@@ -2,20 +2,20 @@
 # -*- coding: utf-8 -*-
 # ~ Author: Pavel Nikylshin
 import logging
-from logging.handlers import SMTPHandler
+from raven import Client
+from raven.handlers.logging import SentryHandler
 
 def run_logging(app):
-    """ Запуск логера для отправки ошибок приложения на email и логирование в файл
+    """ Запуск логов Sentry (оповещение об ошибках на production)
 
     """
-    # Логи на email
-    mail_handler = SMTPHandler(mailhost=(app.config.get('MAIL_SERVER'),app.config.get('MAIL_PORT')),
-                               fromaddr=app.config.get('MAIL_USERNAME'),
-                               toaddrs=app.config.get('SEND_ERROR_EMAILS'), subject='Ошибка API',
-                               credentials=(app.config.get('MAIL_USERNAME'),app.config.get('MAIL_PASSWORD')))
-    mail_handler.setLevel(logging.ERROR)
-    app.logger.addHandler(mail_handler)
+    # Sentry
+    sentry_client = Client(dsn=app.config.get('SENTRY_DSN'))
+    sentry_handler = SentryHandler(sentry_client)
+    sentry_handler.setLevel('ERROR')
+    app.logger.addHandler(sentry_handler)
+
     # Логи в файл
     handler = logging.StreamHandler()
     app.logger.addHandler(handler)
-    app.logger.setLevel(app.config.get("DEBUG_LVL", logging.ERROR))
+    app.logger.setLevel('ERROR')
