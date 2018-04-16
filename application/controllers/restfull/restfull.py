@@ -6,4 +6,5 @@ from application.controllers.restfull import mod_restfull
 
 @mod_restfull.route("/")
 def hello():
-    return "Hello World!"
+    return 'Welcome to API!'
+

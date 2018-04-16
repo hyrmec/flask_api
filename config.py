@@ -20,6 +20,8 @@ class Config(object):
 
     CELERY_BROKER_URL_NOTIFICATIONS = ''
 
+    SENTRY_DSN = ''
+
     DADATA_URL = 'https://dadata.ru/api/v2/clean/'
     DADATA_URL_SUGGEST = 'https://suggestions.dadata.ru/suggestions/api/4_1/rs/suggest/'
     DADATA_KEY = ''
