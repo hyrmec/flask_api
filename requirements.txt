@@ -47,7 +47,6 @@ Pillow==4.1.1
 pisa==3.0.33
 psycopg2==2.7.4
 psycopg2-binary==2.7.4
-pycrypto==2.6.1
 pyparsing==2.2.0
 pyPdf==1.13
 PyPDF2==1.26.0
@@ -66,7 +65,6 @@ six==1.10.0
 smsru==0.1.0
 SQLAlchemy==1.1.9
 tornado==5.0.1
-uWSGI==2.0.15
 vine==1.1.4
 webencodings==0.5.1
 Werkzeug==0.12.1
