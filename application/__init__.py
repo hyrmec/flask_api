@@ -53,5 +53,6 @@ def create_app(config_class=DevelopConfig):
     # Register blueprints
     from application import controllers
     app.register_blueprint(controllers.auth.mod_auth)
+    app.register_blueprint(controllers.restfull.mod_restfull)
 
     return app
