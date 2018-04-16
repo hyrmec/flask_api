@@ -1,19 +1,14 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 # ~ Author: Pavel Nikulshin
+from utils.celery import create_celery
 
-from utils.celery import create_celery_notify
-
-celery = create_celery_notify()
+celery = create_celery()
 
 
 @celery.task()
-def celery(x,y):
-    """ celery test
-
-    :param x:
-    :param y:
-    :return:
-    """
+def test(x,y):
 
     return x+y
+
+

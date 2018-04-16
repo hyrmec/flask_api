@@ -18,7 +18,7 @@ class Config(object):
 
     PASS_AUTORISATION = 'aunQHNhY80=g[`0'
 
-    CELERY_BROKER_URL_NOTIFICATIONS = ''
+    CELERY_BROKER_URL_NOTIFICATIONS = 'pyamqp://guest@localhost//'
 
     SENTRY_DSN = ''
 
