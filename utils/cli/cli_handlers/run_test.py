@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 # ~ Author: Pavel Nikulshun
 import unittest
-
+from application.tests import auth
 
 def run():
     """ Запуск unittests
@@ -10,7 +10,7 @@ def run():
     :return:
     """
     tests = [
-        # your tests
+        auth,
     ]
 
     base_tests = [unittest.TestLoader().loadTestsFromModule(test) for test in tests]

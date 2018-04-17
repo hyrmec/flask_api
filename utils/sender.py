@@ -4,8 +4,7 @@
 import smsru
 from flask_mail import Mail, Message
 
-from application import create_app, mail
-from config import Config
+from application import create_app
 
 
 class Sender(object):
@@ -14,7 +13,7 @@ class Sender(object):
     """
 
     def __init__(self, subject=None, html_body=None, recipients=None, reply_to=None, file=None, to=None, text=None):
-        self.app = create_app(Config)
+        self.app = create_app()
         self.subject = subject
         self.html_body = html_body
         if self.app.config.get('DEBUG'):
@@ -30,7 +29,7 @@ class Sender(object):
         self.text = text
 
     def send_email(self):
-        Mail(self.app)
+        mail = Mail(self.app)
         msg = Message(subject=self.subject, sender=self.app.config.get('MAIL_SENDER'), recipients=self.recipients)
         msg.html = self.html_body
         with self.app.app_context():
@@ -38,7 +37,7 @@ class Sender(object):
         return True
 
     def send_email_attach(self):
-        Mail(self.app)
+        mail = Mail(self.app)
         msg = Message(subject=self.subject, sender=self.app.config.get('MAIL_SENDER'), reply_to=self.reply_to,
                       recipients=self.recipients)
         msg.html = self.html_body
