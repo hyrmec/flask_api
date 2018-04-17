@@ -2,9 +2,10 @@
 # -*- coding: utf-8 -*-
 # ~ Author: Pavel Nikulshin
 
-from sqlalchemy.types import TypeDecorator, CHAR
-from sqlalchemy.dialects.postgresql import UUID
 import uuid
+
+from sqlalchemy.dialects.postgresql import UUID
+from sqlalchemy.types import TypeDecorator, CHAR
 
 
 class UUIDType(TypeDecorator):

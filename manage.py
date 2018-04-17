@@ -7,6 +7,7 @@ from utils.logging import logs
 
 app = create_app()
 register_cli(app)
+
 if "__main__" == __name__:
     logs.run_logging(app)
-    app.run(host='0.0.0.0', port=8000)
+    app.run(host='0.0.0.0', port=7000)

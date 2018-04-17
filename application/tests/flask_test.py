@@ -6,27 +6,27 @@ import sys
 
 import os
 
-sys.path.append(os.path.abspath(os.path.dirname(__file__)+'/../'))
+sys.path.append(os.path.abspath(os.path.dirname(__file__) + '/../'))
 
 import json
 import unittest
 import logging
-from application import create_app, db, current_app
+from application import create_app, db
+from flask import current_app
 from utils.exceptions import flask as flask_exceptions
 from datetime import datetime
 from config import Test
 
 
 class FlaskTestCase(unittest.TestCase):
-
     def __init__(self, *args, **kwargs):
         """Конструктор класса
         :param args: tuple
         :param kwargs: dict
 
         """
-
-        app = create_app(Test)
+        os.putenv('FLASK_CONFIGURATION','test')
+        app = create_app()
         self.app = app.test_client(self)
         db.init_app(app)
         self.login = app.config.get('TEST_LOGIN')
@@ -40,7 +40,8 @@ class FlaskTestCase(unittest.TestCase):
         self.wizard_token = None
 
         if 'TESTS_DIRECTORY' in app.config:
-            logging.basicConfig(format='%(message)s', filename='%s/test_%s.log' % (app.root_path + app.config['TESTS_DIRECTORY'], datetime.now().strftime('%y-%m-%d_%H-%M')))
+            logging.basicConfig(format='%(message)s', filename='%s/test_%s.log' % (
+                app.root_path + app.config['TESTS_DIRECTORY'], datetime.now().strftime('%y-%m-%d_%H-%M')))
         else:
             logging.basicConfig(format='%(message)s')
 
@@ -49,7 +50,8 @@ class FlaskTestCase(unittest.TestCase):
         :return: str
 
         """
-        response = self._call('Session.signin', {"username": self.login, "password": self.password, "is_subagent": self.is_subagent})
+        response = self._call('Session.signin',
+                              {"username": self.login, "password": self.password, "is_subagent": self.is_subagent})
         if 'error' in response and response['error']['code'] == 500:
             raise flask_exceptions.InvalidUsage(response['error']['stack'])
         return response["result"]["session_id"]
@@ -66,7 +68,6 @@ class FlaskTestCase(unittest.TestCase):
 
         # self.session_id = self.user_signin()
         # self.www_uuid = 'b4b16ca2-f8d3-4791-9119-f2a6eb9b7e94'
-
 
     def _call(self, method, request_data=None):
         """Запрос к серверу

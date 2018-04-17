@@ -2,8 +2,10 @@
 # -*- coding: utf-8 -*-
 # ~ Author: Pavel Nikylshin
 import logging
+
 from raven import Client
 from raven.handlers.logging import SentryHandler
+
 
 def run_logging(app):
     """ Запуск логов Sentry (оповещение об ошибках на production)

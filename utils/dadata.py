@@ -5,10 +5,8 @@ import datetime
 import json
 
 import requests
-from flask import request
 
 from application import create_app
-from application import db
 from utils.exceptions import flask as flask_exc
 
 
@@ -16,7 +14,6 @@ class Dadata(object):
     """ Класс для работы с dadata
 
     """
-
     def __init__(self):
         self.app = create_app()
 
@@ -158,7 +155,7 @@ class Dadata(object):
                         'organisation_gen_dir_doljn': elem.get('data').get('management').get('post')
                         if elem.get('data').get('management') else None,
                         'organisation_registration_date': datetime.datetime.fromtimestamp((elem.get('data').get('state')
-                                                                                           .get(
+                            .get(
                             'registration_date')) / 1000)
                             .strftime("%d.%m.%Y")
                         if elem.get('data').get('state').get('registration_date') else None,
@@ -192,4 +189,3 @@ class Dadata(object):
             return lat_lon
         else:
             raise flask_exc.InvalidUsage("Ошибка отправки запроса yandex")
-

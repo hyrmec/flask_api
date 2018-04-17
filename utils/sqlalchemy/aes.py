@@ -3,12 +3,11 @@
 # ~ Author: Pavel Nikulshin
 
 import binascii
-
-from sqlalchemy import LargeBinary, TypeDecorator
+from uuid import UUID
 
 from Crypto.Cipher import AES
-from uuid import UUID
 from base64 import b64encode, b64decode
+from sqlalchemy import LargeBinary, TypeDecorator
 
 key = UUID("17c2c38d-e93d-40c3-8053-71e14aaa39cd").bytes
 

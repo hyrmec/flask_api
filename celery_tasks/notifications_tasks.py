@@ -6,9 +6,8 @@ from utils.celery import create_celery
 celery = create_celery()
 
 
-@celery.task()
-def test(x,y):
-
-    return x+y
+@celery.task(name="tasks.test")
+def celery_test(x,y):
+    return x/y
 
 
