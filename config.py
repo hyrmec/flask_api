@@ -17,7 +17,7 @@ class Config(object):
 
     PASS_AUTORISATION = 'aunQHNhY80=g[`0'
 
-    CELERY_BROKER_URL_NOTIFICATIONS = 'amqp://test:test@test.ru:5673/test'
+    CELERY_BROKER_URL_NOTIFICATIONS = 'amqp://test:test@test.ru:5673/tests'
 
     SENTRY_DSN = ''
 
