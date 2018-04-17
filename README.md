@@ -26,12 +26,12 @@ flask run
 
 ```flask run --host=0.0.0.0 --port=80``` - запуск не на default порту
 
-_Запуск через .sh скрипт : создать в директории проекта start.sh с содержимым, указав DEV или PROD флаг_
+_Запуск через .sh скрипт : создать в директории проекта start.sh с содержимым, указав dev или prod  флаг_
 
 ```
 #!/usr/bin/env bash
 
-export APP_CONFIG_SET=DEV
+export FLASK_CONFIGURATION="dev"
  
 python manage.py
 ```
