@@ -2,19 +2,18 @@
 # -*- coding: utf-8 -*-
 # ~ Author: Pavel Nikylshin
 import os
-from flask import Flask, current_app
+from flask import Flask
 from flask_cli import FlaskCLI
-from flask_jsonrpc import JSONRPC
 from flask_cors import CORS
+from flask_httpauth import HTTPTokenAuth
+from flask_jsonrpc import JSONRPC
+from flask_marshmallow import Marshmallow
 from flask_migrate import Migrate
 from flask_sqlalchemy import SQLAlchemy
-from flask_httpauth import HTTPTokenAuth
-from flask_marshmallow import Marshmallow
-from config import DevelopConfig, ProductionConfig
 
 db = SQLAlchemy()
 migrate = Migrate()
-jsonrpc = JSONRPC(service_url='/api/v1',enable_web_browsable_api=True)
+jsonrpc = JSONRPC(service_url='/api/v1', enable_web_browsable_api=True)
 flask_cli = FlaskCLI()
 cors = CORS()
 ma = Marshmallow()
@@ -29,18 +28,23 @@ def verify_token(token):
     return True
 
 
-def create_app(config_class=DevelopConfig):
+def configure_app(app):
+    config = {
+        "dev": "config.DevelopConfig",
+        "prod": "config.ProductionConfig",
+        "test": "config.Test"
+    }
+    config_name = os.getenv('FLASK_CONFIGURATION', 'prod').replace("\r",'')
+    app.config.from_object(config[config_name])
+
+
+def create_app():
     app = Flask(__name__)
-    conf = os.environ.get('APP_CONFIG_SET')
-    if conf and 'DEV' in conf:
-        app.config.from_object(DevelopConfig)
-    elif conf and 'PROD' in conf:
-        app.config.from_object(ProductionConfig)
-    else:
-        app.config.from_object(config_class)
+    configure_app(app)
 
     cors.init_app(app)
     flask_cli.init_app(app)
+
     db.init_app(app)
     ma.init_app(app)
 

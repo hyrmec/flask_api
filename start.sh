@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
-export APP_CONFIG_SET=DEV
+export FLASK_CONFIGURATION="dev"
 python manage.py
